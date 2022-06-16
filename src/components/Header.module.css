@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    justify-content:center;
+    background-color:#2C2D2E;
+}
+.text {
+    font-size: 16px;
+    color: #A39D9D;
+    margin-right: 250px;
+    padding: 20px;
+}
+.loginbtn{
+    border: none;
+    background-color: transparent;
+    color: #A39D9D;
+    margin-left: 20px;
+}
+.btn{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    background-color: coral;
+    color: white;
+}
