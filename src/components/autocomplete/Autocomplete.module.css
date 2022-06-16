@@ -17,4 +17,27 @@
     color: white;
     font-size: 16px;
 }
-.input{};
+.input{
+    padding: 10px 15px;
+    font-size: 1rem;
+    background: white;
+};
+.suggestions{
+    position: absolute;
+    top: 0;
+    transform: translateY(39px);
+    background: white;
+    width: 100%;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+.listItem{
+    cursor: pointer;
+    padding: 10px 15px;
+}
+.listItem:hover{
+    background-color: antiquewhite;
+}

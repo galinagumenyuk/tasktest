@@ -10,15 +10,18 @@ const defaultCenter = {
   lng: 30.401313063105033,
 };
 
+const libraries = ["places"];
+
 const App = () => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: API_KEY,
+    libraries,
   });
   return (
     <div>
       <Header />
-      <Autocomplete />
+      <Autocomplete isLoaded={isLoaded} />
       {isLoaded ? <Map center={defaultCenter} /> : <h2>loading</h2>}
     </div>
   );
