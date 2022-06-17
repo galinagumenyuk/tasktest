@@ -43,7 +43,7 @@ const Map = ({center}) => {
                 onUnmount={onUnmount}
                 options={defaultOptions}
         >
-          <Marker position={center} />
+          <Marker position={center} clickable={true} />
              </GoogleMap>
 </div>
     )
