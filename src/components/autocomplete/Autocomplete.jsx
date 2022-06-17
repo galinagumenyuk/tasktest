@@ -4,10 +4,10 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
-const Autocomplete = ({isLoaded}) => {
+const Autocomplete = ({isLoaded, onSelect}) => {
      const {
     ready,
     value,
@@ -33,10 +33,11 @@ const Autocomplete = ({isLoaded}) => {
       setValue(description, false);
       clearSuggestions();
 
-    //   getGeocode({ address: description }).then((results) => {
-    //     const { lat, lng } = getLatLng(results[0]);
-    //     console.log("📍 Coordinates: ", { lat, lng });
-    //   });
+      getGeocode({ address: description }).then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+          console.log("📍 Coordinates: ", { lat, lng });
+          onSelect({ lat, lng });
+      });
     };
 
   const renderSuggestions = () =>
@@ -54,17 +55,62 @@ const Autocomplete = ({isLoaded}) => {
     });
 
     useEffect(() => {
-        if (isLoaded) { 
+        if (isLoaded) {
             init();
         }
-     },[isLoaded, init])
+    }, [isLoaded, init]);
+
+    const [rent, setRent] = useState("");
+    const [way, setWay] = useState("");
+    const [time, setTime] = useState("");
+    
+
+     const handleChange = (e) => {
+    switch (e.target.name) {
+      case "rent":
+        setRent(e.target.value);
+        break;
+      case "way":
+        setWay(e.target.value);
+            break;
+         case "time":
+        setTime(e.target.value);
+            break;
+      default:
+        return;
+    }
+  };
+    
+    const onHandleSubmit = e => {
+    e.preventDefault();
+//   createRequest(rent, way, time, );
+        console.log(rent, way, time);
+    setRent("");
+        setWay(""); 
+        setTime("");
+    }
 
     return (
         <div className={s.container}>
-            <div className={s.wrapper} ref={ref}>
-                <input type="text" placeholder="Я хочу орендувати" className={s.input}></input>
-                <input type="text" placeholder="Спосіб оренди" className={s.input}></input>
-                <input type="text" placeholder="Період оренди" className={s.input}></input>
+            <form className={s.form} ref={ref} onSubmit={onHandleSubmit}>
+                <input type="text"
+                    name="rent"
+                    value={rent}
+                    onChange={handleChange}
+                    placeholder="Я хочу орендувати"
+                    className={s.input}></input>
+                <input type="text"
+                    name="way"
+                    value={way}
+                    onChange={handleChange}
+                    placeholder="Спосіб оренди"
+                    className={s.input}></input>
+                <input type="date"
+                    name="time"
+                    value={time}
+                    onChange={handleChange}
+                    placeholder="Період оренди"
+                    className={s.input}></input>
                 <input type="text" placeholder="Де шукати?"
                         value={value}
                         onChange={handleInput}
@@ -72,8 +118,8 @@ const Autocomplete = ({isLoaded}) => {
                         className={s.input}></input>
                 {status === "OK" && <ul className={s.suggestions}>{renderSuggestions()}</ul>}
               
-                <button type="button" className={s.btn}>Пошук</button>
-            </div>
+                <button type="submit" className={s.btn}>Пошук</button>
+            </form>
            
         </div>
     )

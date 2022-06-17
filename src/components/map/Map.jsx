@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { GoogleMap } from "@react-google-maps/api"
+import { GoogleMap, Marker } from "@react-google-maps/api"
 import s from "./Map.module.css";
 import { themeDefault } from "./themeMap";
 
@@ -30,8 +30,8 @@ const Map = ({center}) => {
   }, [])
 
   const onUnmount = React.useCallback(function callback(map) {
-    // setMap(null)
-  }, [])
+   mapRef.current = undefined;
+  },[])
     
     return (
         <div className={s.container}>
@@ -42,12 +42,12 @@ const Map = ({center}) => {
                 onLoad={onLoad}
                 onUnmount={onUnmount}
                 options={defaultOptions}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
+        >
+          <Marker position={center} />
+             </GoogleMap>
 </div>
     )
 }
+
 
 export default Map;
