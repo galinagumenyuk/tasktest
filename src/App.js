@@ -2,6 +2,7 @@ import "./App.css";
 import { useJsApiLoader } from "@react-google-maps/api";
 import Header from "./components/Header";
 import Map from "./components/map/Map";
+import NestedList from "./components/List/List";
 import Autocomplete from "./components/autocomplete/Autocomplete";
 import { useState, useCallback } from "react";
 
@@ -28,7 +29,10 @@ const App = () => {
     <div>
       <Header />
       <Autocomplete isLoaded={isLoaded} onSelect={onPlaceSelect} />
-      {isLoaded ? <Map center={center} /> : <h2>loading</h2>}
+      <div className="bodyWrapper">
+        <NestedList />
+        {isLoaded ? <Map center={center} /> : <h2>loading</h2>}
+      </div>
     </div>
   );
 };
